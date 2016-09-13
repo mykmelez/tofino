@@ -11,7 +11,7 @@
  */
 /* global PROCESS_TYPE */
 
-import bunyan from 'bunyan';
+// import bunyan from 'bunyan';
 import stream from 'stream';
 
 const LEVELS = [
@@ -19,11 +19,11 @@ const LEVELS = [
 ];
 
 function getLevelName(level) {
-  for (var name of LEVELS) {
-    if (bunyan[name] === level) {
-      return name;
-    }
-  }
+  // for (var name of LEVELS) {
+  //   if (bunyan[name] === level) {
+  //     return name;
+  //   }
+  // }
   return null;
 }
 
@@ -60,15 +60,15 @@ export function pipeToConsole() {
     stream: new stream.Writable({
       write(chunk, encoding, next) {
         const message = JSON.parse(chunk);
-        if (message.level >= bunyan.ERROR) {
-          console.error(message.msg);
-        } else if (message.level === bunyan.WARN) {
-          console.warn(message.msg);
-        } else if (message.level === bunyan.INFO) {
-          console.info(message.msg);
-        } else {
+        // if (message.level >= bunyan.ERROR) {
+        //   console.error(message.msg);
+        // } else if (message.level === bunyan.WARN) {
+        //   console.warn(message.msg);
+        // } else if (message.level === bunyan.INFO) {
+        //   console.info(message.msg);
+        // } else {
           console.log(message.msg);
-        }
+        // }
 
         next();
       },
@@ -104,7 +104,12 @@ switch (name) {
   }
 }
 
-export const logger = bunyan.createLogger({
-  name,
-  streams,
-});
+// export const logger = bunyan.createLogger({
+//   name,
+//   streams,
+// });
+export const logger = {
+  info: console.info,
+  error: console.error,
+  addStream: function(){},
+};
