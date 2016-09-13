@@ -19,7 +19,7 @@ const LEVELS = [
 ];
 
 function getLevelName(level) {
-  for (const name of LEVELS) {
+  for (var name of LEVELS) {
     if (bunyan[name] === level) {
       return name;
     }

@@ -38,7 +38,7 @@ const SQUIRREL_VERSION_EVENTS = [
 ];
 const SQUIRREL_FIRSTRUN_EVENT = 'squirrel-firstrun';
 
-for (const event of SQUIRREL_VERSION_EVENTS) {
+for (var event of SQUIRREL_VERSION_EVENTS) {
   argParser.option(event, {
     default: undefined,
     type: 'string',
@@ -55,7 +55,7 @@ const options = parseArgs();
 if (options[SQUIRREL_FIRSTRUN_EVENT]) {
   seenEvent = SQUIRREL_FIRSTRUN_EVENT;
 } else {
-  for (const event of SQUIRREL_VERSION_EVENTS) {
+  for (var event of SQUIRREL_VERSION_EVENTS) {
     if (options[event]) {
       seenEvent = event;
       break;
