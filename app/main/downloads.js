@@ -10,18 +10,18 @@ CONDITIONS OF ANY KIND, either express or implied. See the License for the
 specific language governing permissions and limitations under the License.
 */
 
-export function getStatusText(state) {
-  return state.ui.statusText;
-}
-
-export function getPageSearchVisible(state) {
-  return state.ui.pageSearchVisible;
-}
-
-export function getOverviewVisible(state) {
-  return state.ui.overviewVisible;
-}
-
-export function getLocationAutocompletions(state, pageId) {
-  return state.ui.locationAutocompletions.get(pageId);
+export function registerDownloadHandlers(bw) {
+  bw.webContents.session.on('will-download', (event, item) => {
+    const itemData = {
+      url: item.getURL(),
+      filename: item.getFilename(),
+    };
+    item.once('done', (_event, state) => {
+      if (state === 'completed') {
+        bw.send('download-completed', itemData);
+      } else {
+        bw.send('download-error', itemData);
+      }
+    });
+  });
 }
