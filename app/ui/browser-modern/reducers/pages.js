@@ -98,7 +98,7 @@ function setSelectedPage(state, pageId) {
 function resetPageData(state, pageId) {
   return state.withMutations(mut => {
     const fresh = new Page({ id: pageId }).entries();
-    for (const [key, value] of fresh) {
+    for (var [key, value] of fresh) {
       mut.update('map', m => m.setIn([pageId, key], value));
     }
   });
@@ -106,7 +106,7 @@ function resetPageData(state, pageId) {
 
 function setPageDetails(state, pageId, pageDetails) {
   return state.withMutations(mut => {
-    for (const [key, value] of Object.entries(pageDetails)) {
+    for (var [key, value] of Object.entries(pageDetails)) {
       if (key === 'id') {
         logger.warn('Skipping setting of `id` on page.');
         continue;
@@ -121,7 +121,7 @@ function setPageDetails(state, pageId, pageDetails) {
 
 function setPageMeta(state, pageId, pageMeta) {
   return state.withMutations(mut => {
-    for (const [key, value] of Object.entries(pageMeta)) {
+    for (var [key, value] of Object.entries(pageMeta)) {
       if (!(key in PageMeta.prototype)) {
         logger.warn(`Skipping setting of \`${key}\` on page meta.`);
         continue;
@@ -133,7 +133,7 @@ function setPageMeta(state, pageId, pageMeta) {
 
 function setPageState(state, pageId, pageState) {
   return state.withMutations(mut => {
-    for (const [key, value] of Object.entries(pageState)) {
+    for (var [key, value] of Object.entries(pageState)) {
       if (!(key in PageState.prototype)) {
         logger.warn(`Skipping setting of \`${key}\` on page state.`);
         continue;
